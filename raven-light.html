@@ -12,7 +12,7 @@
         <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">&larr; BACK</a></div>
     </header>
 
-    <section style="padding-top: 2rem;">
+ <section style="padding-top: 2rem;">
         <h1 class="section-title accent" style="margin-bottom: 1rem;">Raven Light</h1>
         
         <div class="tech-stack">
@@ -27,23 +27,42 @@
         </div>
 
         <div class="bio-text" style="max-width: 800px; margin: 0 auto;">
-            <p><strong>Architecture Overview:</strong> Raven Light operates as a highly polished vertical slice designed to stress-test technical animation workflows and complex AI states in a boss fight scenario.</p>
             
-            <p><strong>C++ Implementations:</strong></p>
-            <ul style="color: var(--text-secondary); margin-left: 2rem; margin-bottom: 1.5rem; line-height: 1.8;">
-                <li>Engineered a custom shape-shifting mechanic relying heavily on optimized skeletal mesh swaps and memory pooling to ensure frame-rate stability during combat.</li>
-                <li>Implemented UE5's Gameplay Ability System (GAS) natively in C++ to handle attributes, cooldowns, and damage calculations entirely server-side.</li>
-                <li>Utilized State Trees and custom Behavior Trees to drive dynamic boss fight phases based on player distance and health thresholds.</li>
+            <blockquote class="role-block">
+                <strong>ROLE:</strong> Lead Systems Architect & C++ Programmer
+            </blockquote>
+
+            <h3 class="subsection-title">System Architecture</h3>
+            <div class="diagram-wrapper">
+                <img src="raven-arch.png" alt="Raven Light Systems Architecture Diagram" class="diagram-img">
+                <p class="caption">High-level execution flow of GAS attributes bridging with the Boss AI State Tree.</p>
+            </div>
+
+            <h3 class="subsection-title">Core Implementations</h3>
+            <ul class="mechanics-list">
+                <li>Native C++ Gameplay Ability System (GAS) integration for server-side attribute calculations.</li>
+                <li>Real-time shape-shifting mechanic utilizing optimized skeletal mesh memory pooling.</li>
+                <li>Hybrid State Tree & Behavior Tree architecture to drive dynamic, multi-phase boss AI.</li>
+                <li>Custom C++ damage execution calculations based on player distance and health thresholds.</li>
             </ul>
 
-            <p><strong>Code Snippet Example (State Handling):</strong></p>
-            <pre style="background: #111; border: 1px solid var(--border-color); padding: 1rem; color: #a6e22e; overflow-x: auto; border-radius: 4px; margin-top: 1rem;">
-// Example placeholder for actual code demonstrating memory management or GAS implementation
-void ARavenCharacter::ApplyDamageContext(AActor* Damager) {
-    if (!HasAuthority()) return;
-    // Core GAS execution logic here
-}
-            </pre>
+            <h3 class="subsection-title">Execution Logic (C++)</h3>
+            <div class="code-editor">
+                <div class="code-header">RavenCharacter.cpp</div>
+<pre><code><span class="keyword">void</span> <span class="class">ARavenCharacter</span>::<span class="function">ApplyDamageContext</span>(<span class="class">AActor</span>* <span class="variable">Damager</span>) 
+{
+    <span class="keyword">if</span> (!<span class="function">HasAuthority</span>()) <span class="keyword">return</span>;
+
+    <span class="comment">// Retrieve the Ability System Component</span>
+    <span class="class">UAbilitySystemComponent</span>* <span class="variable">ASC</span> = <span class="function">GetAbilitySystemComponent</span>();
+    <span class="keyword">if</span> (<span class="variable">ASC</span>) 
+    {
+        <span class="comment">// Core GAS execution logic</span>
+        <span class="variable">ASC</span>-><span class="function">ApplyGameplayEffectToSelf</span>(<span class="variable">DamageEffect</span>, <span class="number">1.0f</span>, <span class="variable">ASC</span>-><span class="function">MakeEffectContext</span>());
+    }
+}</code></pre>
+            </div>
+
         </div>
     </section>
 

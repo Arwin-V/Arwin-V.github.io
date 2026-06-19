@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raven Light | Technical Breakdown</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">&larr; BACK</a></div>
+    </header>
+
+    <section style="padding-top: 2rem;">
+        <h1 class="section-title accent" style="margin-bottom: 1rem;">Raven Light</h1>
+        
+        <div class="tech-stack">
+            <span class="tech-badge">Unreal Engine 5</span>
+            <span class="tech-badge">C++</span>
+            <span class="tech-badge">Gameplay Ability System (GAS)</span>
+            <span class="tech-badge">State Trees</span>
+        </div>
+
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Raven Light Gameplay" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="bio-text" style="max-width: 800px; margin: 0 auto;">
+            <p><strong>Architecture Overview:</strong> Raven Light operates as a highly polished vertical slice designed to stress-test technical animation workflows and complex AI states in a boss fight scenario.</p>
+            
+            <p><strong>C++ Implementations:</strong></p>
+            <ul style="color: var(--text-secondary); margin-left: 2rem; margin-bottom: 1.5rem; line-height: 1.8;">
+                <li>Engineered a custom shape-shifting mechanic relying heavily on optimized skeletal mesh swaps and memory pooling to ensure frame-rate stability during combat.</li>
+                <li>Implemented UE5's Gameplay Ability System (GAS) natively in C++ to handle attributes, cooldowns, and damage calculations entirely server-side.</li>
+                <li>Utilized State Trees and custom Behavior Trees to drive dynamic boss fight phases based on player distance and health thresholds.</li>
+            </ul>
+
+            <p><strong>Code Snippet Example (State Handling):</strong></p>
+            <pre style="background: #111; border: 1px solid var(--border-color); padding: 1rem; color: #a6e22e; overflow-x: auto; border-radius: 4px; margin-top: 1rem;">
+// Example placeholder for actual code demonstrating memory management or GAS implementation
+void ARavenCharacter::ApplyDamageContext(AActor* Damager) {
+    if (!HasAuthority()) return;
+    // Core GAS execution logic here
+}
+            </pre>
+        </div>
+    </section>
+
+</body>
+</html>

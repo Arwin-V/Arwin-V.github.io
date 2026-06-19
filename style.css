@@ -16,7 +16,7 @@
 
 body {
     background-color: var(--bg-color);
-    color: var(--accent-color);
+    color: var(--text-primary);
     line-height: 1.6;
 }
 
@@ -33,12 +33,12 @@ header {
 }
 
 .separator {
-    color: var( --text-secondary);
+    color: var( --accent-color);
     margin: 0 10px; /* Optional: adds a little breathing room around the pipe */
 }
 
 .logo-v { 
-    color: var(--text-primary); /* This pulls the white color from your root variables */
+    color: var(--accent-color); /* This pulls the white color from your root variables */
 }
 
 
@@ -266,3 +266,101 @@ blockquote {
         padding: 1rem;
     }
 }
+
+/* =========================================
+   PROJECT PAGE SPECIFICS
+   ========================================= */
+
+.subsection-title {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin: 2.5rem 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.role-block {
+    background-color: var(--surface-color);
+    border-left: 4px solid var(--accent-color);
+    padding: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Diagram Formatting */
+.diagram-wrapper {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.diagram-img {
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+}
+
+.caption {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+/* Bullet Point Formatting */
+.mechanics-list {
+    color: var(--text-secondary);
+    margin-left: 1.5rem;
+    line-height: 1.8;
+}
+
+.mechanics-list li {
+    margin-bottom: 0.5rem;
+}
+
+/* =========================================
+   C++ CODE EDITOR STYLING
+   ========================================= */
+.code-editor {
+    background-color: #1e1e1e; /* Standard IDE Dark Mode */
+    border: 1px solid #333;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.code-header {
+    background-color: #2d2d2d;
+    color: #858585;
+    padding: 0.5rem 1rem;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #333;
+}
+
+.code-editor pre {
+    margin: 0;
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+.code-editor code {
+    font-family: Consolas, "Courier New", monospace; /* The Computer Code Font */
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #d4d4d4; /* Default white text */
+}
+
+/* Syntax Highlighting Colors */
+.code-editor .keyword { color: #569cd6; } /* Blue */
+.code-editor .class { color: #4ec9b0; }   /* Teal */
+.code-editor .function { color: #dcdcaa; } /* Yellow */
+.code-editor .variable { color: #9cdcfe; } /* Light Blue */
+.code-editor .comment { color: #6a9955; font-style: italic; } /* Green */
+.code-editor .number { color: #b5cea8; } /* Light Green */
