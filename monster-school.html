@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster School | Technical Breakdown</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">&larr; BACK</a></div>
+    </header>
+
+    <section style="padding-top: 2rem;">
+        <h1 class="section-title accent" style="margin-bottom: 1rem;">Monster School</h1>
+        
+        <div class="tech-stack">
+            <span class="tech-badge">Unreal Engine 5.4</span>
+            <span class="tech-badge">Blueprint Visual Scripting</span>
+            <span class="tech-badge">Wave-Based FPS</span>
+            <span class="tech-badge">Object Pooling</span>
+            <span class="tech-badge">AI State Machines</span>
+        </div>
+
+        <div class="video-container">
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/arf3canrTQo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
+        <div class="bio-text" style="max-width: 800px; margin: 0 auto;">
+            
+            <blockquote class="role-block">
+                <strong>ROLE:</strong> Programmer
+            </blockquote>
+
+            <h3 class="subsection-title">Core Engineering Implementations</h3>
+            <ol class="mechanics-list ordered-mechanics" style="color: var(--text-secondary); margin-left: 1.5rem; line-height: 1.8; padding-left: 1rem;">
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Optimized First-Person Architecture:</strong> Engineered a high-performance FPS controller utilizing deterministic line-tracing for hit registration. Minimized render overhead by exclusively drawing a first-person arm mesh, paired with procedural recoil animations for tactile weapon feedback.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Memory-Efficient Object Pooling:</strong> Architected a robust object pooling system for projectile instantiation and VFX. This completely eliminates runtime garbage collection hitches and frame drops during high-density combat encounters.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">State-Driven AI & Dynamic Target Tracking:</strong> Programmed autonomous drone AI utilizing Unreal's navigation mesh and state machines. Implemented seamless transitions between patrol and pursuit states, natively bound to Dynamic Material Instance (MID) updates (e.g., threat-level color shifting to red) to visually telegraph AI intent.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Wave Management & Modular Timers:</strong> Developed a scalable, wave-based encounter director driven by a modular timing subsystem. This manages dynamic pacing, spawning varied monster and drone archetypes across the abandoned city environment.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Decoupled Damage & Resource Framework:</strong> Built a modular, component-based damage system handling localized hit calculations. Integrated fluid player locomotion (sprint, jump) with resource management loops (health and ammo pickups) directly into the core combat loop.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Observer Pattern UI Architecture:</strong> Bound the player HUD strictly to data-driven event dispatchers. By adopting the Observer pattern, the UI updates purely on state mutation (health/ammo changes), completely avoiding expensive per-frame ticking.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Spatial Audio Engineering:</strong> Integrated procedural and spatialized audio cues to enhance threat localization, elevating the acoustic feedback loop for enemy spawns, drone proximity, and weapon mechanics.</li>
+            </ol>
+        </div>
+    </section>
+
+</body>
+</html>

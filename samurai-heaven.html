@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samurai Heaven | Technical Breakdown</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">&larr; BACK</a></div>
+    </header>
+
+    <section style="padding-top: 2rem;">
+        <h1 class="section-title accent" style="margin-bottom: 1rem;">Samurai Heaven (VR)</h1>
+        
+        <div class="tech-stack">
+            <span class="tech-badge">VR</span>
+            <span class="tech-badge">Unreal Engine 5.7</span>
+            <span class="tech-badge">C++ Native</span>
+            <span class="tech-badge">Meta Quest 3 (Standalone)</span>
+            <span class="tech-badge">Forward Shading</span>
+            <span class="tech-badge">High-Speed Combat</span>
+            <span class="tech-badge">Ongoing Development</span>
+        </div>
+
+        <div class="bio-text" style="max-width: 800px; margin: 0 auto;">
+            
+            <blockquote class="role-block">
+                <strong>ROLE:</strong> Solo Developer
+            </blockquote>
+
+            <h3 class="subsection-title">Core VR Engineering & Rendering Optimization</h3>
+            <ol class="mechanics-list ordered-mechanics" style="color: var(--text-secondary); margin-left: 1.5rem; line-height: 1.8; padding-left: 1rem;">
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">C++ Centric Execution Pipeline:</strong> Migrated heavy gameplay logic and physics calculations entirely to native C++ to bypass Blueprint virtual machine overhead. This ensures the game strictly maintains a 90fps (11.1ms frame time) target on mobile-tier Snapdragon architecture.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">High-Speed Katana Kinematics:</strong> Engineered a predictive continuous collision detection (CCD) model for high-velocity slashing mechanics. The system accurately interpolates sub-frame hand movements to guarantee precise hit registration, regardless of the player's physical swing speed.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Mobile-Targeted Render Pipeline:</strong> Aggressively stripped the default deferred renderer in favor of Forward Shading. Completely disabled expensive post-processing volumes (Bloom, SSR, dynamic Ambient Occlusion) to preserve critical GPU bandwidth for high-resolution stereoscopic output.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Instanced Stereo Rendering (ISR):</strong> Leveraged ISR to significantly reduce CPU overhead. By rendering both the left and right eye views simultaneously in a single pass, the engine drastically minimizes draw call submissions to the render thread.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Static Illumination & Lightmap Baking:</strong> Replaced dynamic, shadow-casting lights with a fully baked static lighting network via GPU Lightmass. This eliminates real-time shadow computation while preserving highly realistic global illumination and environmental depth on standalone hardware.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Fixed Foveated Rendering (FFR):</strong> Implemented OpenXR-compliant foveation profiles for the Meta Quest 3. Allocated maximum pixel density strictly to the center of the lenses while aggressively down-sampling the visual periphery, saving up to 20% in raw rendering costs.</li>
+            </ol>
+
+            <h3 class="subsection-title">Execution Logic (Hardware-Agnostic Initialization)</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
+                <em>Implementation of the core VR pawn. Demonstrates OpenXR tracking alignment, safe object instantiation, and DRY-compliant equipment initialization tailored for optimized C++ execution.</em>
+            </p>
+
+            <div class="code-editor" style="background: #0d0d0d; border: 1px solid #333; border-radius: 4px; padding: 1.5rem; overflow-x: auto; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6;">
+<pre style="margin: 0; color: #00FF41;"><code>
+// ============================================================================
+// Working Title: Geo-Slash | Release Title: Samurai Heaven
+// Sample VR player code in C++ (Hardware-Agnostic OpenXR Initialization)
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// VRPlayer.h
+// ----------------------------------------------------------------------------
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Pawn.h"
+#include "VRPlayer.generated.h"
+
+class UCameraComponent;
+class UMotionControllerComponent;
+class USkeletalMeshComponent;
+class UAnimSequence;
+class ABaseWeapon;
+
+UCLASS()
+class GEOSLASH_API AVRPlayer : public APawn
+{
+    GENERATED_BODY()
+
+public:
+    AVRPlayer();
+
+    UFUNCTION(BlueprintPure, Category = "SamuraiHeaven|VR")
+    FVector GetPlayerHeadLocation() const;
+
+protected:
+    virtual void BeginPlay() override;
+
+private:
+    // UE5 Standard: TObjectPtr for access tracking and lazy loading
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SamuraiHeaven|Camera", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr&lt;USceneComponent&gt; VROrigin;
+    
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SamuraiHeaven|Camera", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr&lt;UCameraComponent&gt; VRCamera;
+    
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SamuraiHeaven|Hands", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr&lt;UMotionControllerComponent&gt; LeftController;
+    
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SamuraiHeaven|Hands", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr&lt;USkeletalMeshComponent&gt; LeftHandMesh;
+    
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SamuraiHeaven|Hands", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr&lt;UMotionControllerComponent&gt; RightController;
+    
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SamuraiHeaven|Hands", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr&lt;USkeletalMeshComponent&gt; RightHandMesh;
+    
+    UPROPERTY(EditDefaultsOnly, Category = "SamuraiHeaven|Animation")
+    TObjectPtr&lt;UAnimSequence&gt; LeftHandHold;
+    
+    UPROPERTY(EditDefaultsOnly, Category = "SamuraiHeaven|Animation")
+    TObjectPtr&lt;UAnimSequence&gt; RightHandHold;
+    
+    UPROPERTY(EditDefaultsOnly, Category = "SamuraiHeaven|Equipment")
+    TSubclassOf&lt;ABaseWeapon&gt; LeftWeaponClass;
+    
+    UPROPERTY(EditDefaultsOnly, Category = "SamuraiHeaven|Equipment")
+    TSubclassOf&lt;ABaseWeapon&gt; RightWeaponClass;
+
+    UPROPERTY(Transient)
+    TObjectPtr&lt;ABaseWeapon&gt; LeftWeaponActor;
+
+    UPROPERTY(Transient)
+    TObjectPtr&lt;ABaseWeapon&gt; RightWeaponActor;
+
+    // Helper to enforce DRY principles during actor initialization
+    void InitializeWeapon(TSubclassOf&lt;ABaseWeapon&gt; WeaponClass, TObjectPtr&lt;USkeletalMeshComponent&gt; HandMesh, FName SocketName, EWeaponHand HandRole, TObjectPtr&lt;ABaseWeapon&gt;& OutWeapon);
+};
+
+// ----------------------------------------------------------------------------
+// VRPlayer.cpp
+// ----------------------------------------------------------------------------
+#include "Player/VRPlayer.h"
+#include "Camera/CameraComponent.h"
+#include "MotionControllerComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Animation/AnimSequence.h"
+#include "IXRTrackingSystem.h" 
+#include "Weapons/BaseWeapon.h"
+#include "Engine/World.h"
+
+static const FName MVS_LeftHand("Left");
+static const FName MVS_RightHand("Right");
+
+AVRPlayer::AVRPlayer()
+{
+    PrimaryActorTick.bCanEverTick = false;
+    
+    VROrigin = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("VROrigin"));
+    SetRootComponent(VROrigin);
+    
+    VRCamera = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("VRCamera"));
+    VRCamera-&gt;SetupAttachment(VROrigin);
+    
+    LeftController = CreateDefaultSubobject&lt;UMotionControllerComponent&gt;(TEXT("LeftController"));
+    LeftController-&gt;SetupAttachment(VROrigin);
+    LeftController-&gt;MotionSource = MVS_LeftHand;
+    
+    LeftHandMesh = CreateDefaultSubobject&lt;USkeletalMeshComponent&gt;(TEXT("LeftHandMesh"));
+    LeftHandMesh-&gt;SetupAttachment(LeftController);
+    LeftHandMesh-&gt;SetAnimationMode(EAnimationMode::AnimationSingleNode);
+    
+    RightController = CreateDefaultSubobject&lt;UMotionControllerComponent&gt;(TEXT("RightController"));
+    RightController-&gt;SetupAttachment(VROrigin);
+    RightController-&gt;MotionSource = MVS_RightHand;
+    
+    RightHandMesh = CreateDefaultSubobject&lt;USkeletalMeshComponent&gt;(TEXT("RightHandMesh"));
+    RightHandMesh-&gt;SetupAttachment(RightController);
+    RightHandMesh-&gt;SetAnimationMode(EAnimationMode::AnimationSingleNode);
+}
+
+void AVRPlayer::BeginPlay()
+{
+    Super::BeginPlay();
+    
+    // Modern UE5 OpenXR Tracking approach
+    if (GEngine && GEngine-&gt;XRSystem.IsValid())
+    {
+        GEngine-&gt;XRSystem-&gt;SetTrackingOrigin(EHMDTrackingOrigin::Floor);
+    }
+    
+    InitializeWeapon(LeftWeaponClass, LeftHandMesh, TEXT("katana_l"), EWeaponHand::Left, LeftWeaponActor);
+    InitializeWeapon(RightWeaponClass, RightHandMesh, TEXT("katana_r"), EWeaponHand::Right, RightWeaponActor);
+    
+    if (IsValid(LeftHandHold))
+    {
+        LeftHandMesh-&gt;PlayAnimation(LeftHandHold, true);
+    }
+    
+    if (IsValid(RightHandHold))
+    {
+        RightHandMesh-&gt;PlayAnimation(RightHandHold, true);
+    }
+}
+
+void AVRPlayer::InitializeWeapon(TSubclassOf&lt;ABaseWeapon&gt; WeaponClass, TObjectPtr&lt;USkeletalMeshComponent&gt; HandMesh, FName SocketName, EWeaponHand HandRole, TObjectPtr&lt;ABaseWeapon&gt;& OutWeapon)
+{
+    UWorld* World = GetWorld();
+    if (!IsValid(World) || !WeaponClass) return;
+
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.Owner = this;
+    SpawnParams.Instigator = this;
+    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+    OutWeapon = World-&gt;SpawnActor&lt;ABaseWeapon&gt;(WeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+    
+    if (IsValid(OutWeapon))
+    {
+        OutWeapon-&gt;HandRole = HandRole;
+        OutWeapon-&gt;AttachToComponent(HandMesh, FAttachmentTransformRules::SnapToTargetNotIncludingScale, SocketName);
+    }
+}
+
+FVector AVRPlayer::GetPlayerHeadLocation() const
+{
+    return IsValid(VRCamera) ? VRCamera-&gt;GetComponentLocation() : GetActorLocation();
+}
+</code></pre>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Void | Technical Breakdown</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">&larr; BACK</a></div>
+    </header>
+
+    <section style="padding-top: 2rem;">
+        <h1 class="section-title accent" style="margin-bottom: 1rem;">Green Void</h1>
+        
+        <div class="tech-stack">
+            <span class="tech-badge">Unreal Engine 5.5</span>
+            <span class="tech-badge">C++ Systems</span>
+            <span class="tech-badge">Rapid Prototyping</span>
+            <span class="tech-badge">Global Game Jam 2026</span>
+        </div>
+
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/yI_KSWXDGYU?si=sKm9xcWJwn8ry8YJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+
+        <div class="bio-text" style="max-width: 800px; margin: 0 auto;">
+            
+            <blockquote class="role-block">
+                <strong>ROLE:</strong> Lead Developer & Game Designer<br>
+                <span style="font-size: 0.9em; color: var(--text-secondary); font-weight: normal; margin-top: 5px; display: inline-block;">
+                    <strong>Team Name:</strong> RGB<br>
+                    <strong>Team:</strong> Varshin (UI Engineering, Env Art), Sreesaran (Deployment, Testing, Audio)
+                </span>
+            </blockquote>
+
+            <h3 class="subsection-title">System Architecture</h3>
+            <div class="diagram-wrapper" style="border: none; background: transparent; padding: 0;">
+                <img src="green-void-arch.png" alt="Green Void Systems Architecture Diagram" class="diagram-img" style="border: 1px solid var(--border-color); border-radius: 4px;">
+                <p class="caption">Execution flow demonstrating Singleton data persistence, interface-driven interaction components, and Observer-pattern UI updates.</p>
+            </div>
+
+            <h3 class="subsection-title">Core Engineering Implementations</h3>
+            <ol class="mechanics-list ordered-mechanics" style="color: var(--text-secondary); margin-left: 1.5rem; line-height: 1.8; padding-left: 1rem;">
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Singleton-Pattern Game State Persistence:</strong> Architected a high-speed data persistence layer within the <code>UGameInstance</code>, utilizing the Singleton pattern to manage global session data and cross-level state synchronization, essential for rapid iterative prototyping during the 48-hour development cycle.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Modular Interaction Framework:</strong> Engineered a scalable <code>IInteractable</code> interface that supports diverse input protocols—press, tap, and hold—allowing for seamless interaction across various environmental objects, computer terminals, and mini-game triggers.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Simulation-Driven Economy & Lifecycle:</strong> Developed complex, decoupled simulation logic for banking, shop inventories, and character vitals. Leveraged a centralized data-driven approach to ensure simulation consistency across the game's branching narrative outcomes.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Psychological Audio-Visual Pipeline:</strong> Integrated procedural audio systems that modulate dynamic parameters (e.g., heart-rate frequency) based on real-time game pressure variables, directly reinforcing the psychological narrative and emotional tension of the first-person perspective.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Recursive UI & Mini-Game Integration:</strong> Built an advanced, nested UI architecture that enables full control of virtual interfaces (in-game computers), facilitating custom mini-game deployment within a secure, high-fidelity overlay system.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Dynamic Narrative & Ending Resolver:</strong> Implemented a flag-based branching logic system to track player decisions, enabling multiple narrative endpoints that reinforce the game’s core philosophical commentary on "grind culture" versus interpersonal connection.</li>
+            </ol>
+        </div>
+    </section>
+
+</body>
+</html>

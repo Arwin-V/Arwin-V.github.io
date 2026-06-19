@@ -39,50 +39,130 @@
                 <p class="caption">High-level execution flow demonstrating decoupled state persistence, interface-driven transformations, and event-driven AI.</p>
             </div>
 
-           <h3 class="subsection-title">Core Engineering Implementations</h3>
+         <!-- Core Mechanics List -->
+            <h3 class="subsection-title">Core Engineering Implementations</h3>
             <ol class="mechanics-list ordered-mechanics" style="color: var(--text-secondary); margin-left: 1.5rem; line-height: 1.8; padding-left: 1rem;">
                 
-                <li style="margin-bottom: 1rem;"><strong>State Management & Memory Persistence:</strong> Abstracted RPG data (Health, Stamina, Mana) into a modular <code>UCustomAttributeComponent</code> bound to the <code>APlayerState</code>. Maintained strict data integrity across boundaries by leveraging <code>UGameInstance</code> caches for hard loads and persistent state injection during seamless transitions.</li>
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">State Management & Memory Persistence:</strong> Abstracted RPG data (Health, Stamina, Mana) into a modular <code>UCustomAttributeComponent</code> bound to the <code>APlayerState</code>. Maintained strict data integrity across boundaries by leveraging <code>UGameInstance</code> caches for hard loads and persistent state injection during seamless transitions.</li>
                 
-                <li style="margin-bottom: 1rem;"><strong>World Streaming & Seamless Transitions:</strong> Architected non-blocking, seamless level transitions utilizing Unreal’s level streaming and portal systems. This completely eliminates frame hitching and ensures uninterrupted gameplay flow during spatial state changes.</li>
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">World Streaming & Seamless Transitions:</strong> Architected non-blocking, seamless level transitions utilizing Unreal’s level streaming and portal systems. This completely eliminates frame hitching and ensures uninterrupted gameplay flow during spatial state changes.</li>
                 
-                <li style="margin-bottom: 1rem;"><strong>Interface-Driven Possession Pipeline:</strong> Engineered a scalable <code>ITransformable</code> framework to decouple pawn logic. The pipeline evaluates Hierarchical <code>FGameplayTag</code> conditions, safely handles the garbage collection of the active shell, and dynamically injects Priority 0 Input Mapping Contexts (IMCs) upon target possession.</li>
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Interface-Driven Possession Pipeline:</strong> Engineered a scalable <code>ITransformable</code> framework to decouple pawn logic. The pipeline evaluates Hierarchical <code>FGameplayTag</code> conditions, safely handles the garbage collection of the active shell, and dynamically injects Priority 0 Input Mapping Contexts (IMCs) upon target possession.</li>
                 
-                <li style="margin-bottom: 1rem;"><strong>Scalable Combat Architecture & Token Director:</strong> Designed a highly scalable, component-based combat framework governed by a custom <strong>Token-Based Attack System</strong>. This architecture manages AI attack concurrency and spacing, preventing combat state overlapping and guaranteeing readable, AAA-standard engagement pacing.</li>
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Scalable Combat Architecture & Token Director:</strong> Designed a highly scalable, component-based combat framework governed by a custom <strong>Token-Based Attack System</strong>. This architecture manages AI attack concurrency and spacing, preventing combat state overlapping and guaranteeing readable, AAA-standard engagement pacing.</li>
                 
-                <li style="margin-bottom: 1rem;"><strong>Deterministic Hit Registration (Advanced Trace):</strong> Developed a universal, data-driven <code>UAdvancedWeaponTraceComponent</code> attachable to any entity via composition. Hit calculation is strictly slaved to <code>UAnimNotifyState</code> events within Montages, guaranteeing frame-perfect synchronization between visual kinematics and server-side damage execution.</li>
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Deterministic Hit Registration (Advanced Trace):</strong> Developed a universal, data-driven <code>UAdvancedWeaponTraceComponent</code> attachable to any entity via composition. Hit calculation is strictly slaved to <code>UAnimNotifyState</code> events within Montages, guaranteeing frame-perfect synchronization between visual kinematics and server-side damage execution.</li>
                 
-                <li style="margin-bottom: 1rem;"><strong>Event-Driven AI & Bespoke Boss Logic:</strong> Replaced expensive tick functions with delegate-driven <code>UBehaviorTree</code> execution for standard AI. Architected a bespoke, standalone AI Controller for the Boss entity to manage complex phase transitions and strictly mitigate "God Class" inheritance bloat.</li>
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Event-Driven AI & Bespoke Boss Logic:</strong> Replaced expensive tick functions with delegate-driven <code>UBehaviorTree</code> execution for standard AI. Architected a bespoke, standalone AI Controller for the Boss entity to manage complex phase transitions and strictly mitigate "God Class" inheritance bloat.</li>
                 
-                <li style="margin-bottom: 1rem;"><strong>Procedural 3D Spatial Navigation:</strong> Programmed a custom <code>UProceduralFlightComponent</code> to solve complex aerial traversal for entities like Dragons. Combined spline-based locomotion with dynamic steering behaviors (e.g., separation, alignment, cohesion) to generate fluid, procedural flight animations independently of the primary navigation mesh.</li>
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Procedural 3D Spatial Navigation:</strong> Programmed a custom <code>UProceduralFlightComponent</code> to solve complex aerial traversal for entities like Dragons. Combined spline-based locomotion with dynamic steering behaviors (e.g., separation, alignment, cohesion) to generate fluid, procedural flight animations independently of the primary navigation mesh.</li>
                 
-                <li style="margin-bottom: 1rem;"><strong>Data-Driven Design (DDD) & Observer UI:</strong> Constructed the <code>ABirdBase</code> architecture heavily reliant on <code>UPrimaryDataAsset</code> initialization, enabling level designers to natively tune parameters without C++ recompilation. Bound the UI strictly to <code>OnValueChanged</code> delegates, achieving zero-tick, Observer Pattern-driven rendering.</li>
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Dynamic Audio & MetaSound DSP Modulation:</strong> Implemented procedural audio networks using the MetaSound framework. Utilized C++ audio component interfaces to inject runtime parameters (e.g., dynamic pitch shifting based on velocity), driving real-time digital signal processing (DSP) execution over legacy Sound Cues.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Procedural VFX & Niagara Integration:</strong> Engineered highly scalable visual effects pipelines by exposing Niagara User Parameters to native code. Dynamically modulated vector forces, color curves, and particle spawn rates at runtime based on combat kinematics, eliminating the need for redundant, hard-coded emitter variations.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Data-Driven Design (DDD) & Observer UI:</strong> Constructed the <code>ABirdBase</code> architecture heavily reliant on <code>UPrimaryDataAsset</code> initialization, enabling level designers to natively tune parameters without C++ recompilation. Bound the UI strictly to <code>OnValueChanged</code> delegates, achieving zero-tick, Observer Pattern-driven rendering.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Engine Profiling & Render Optimization:</strong> Conducted rigorous CPU and Render thread profiling using Unreal Insights. Radically reduced shader permutation loads and memory overhead by architecting a unified Master Material framework, driving all visual entity variations strictly through Material Instance Constants (MICs) and dynamic overrides.</li>
             </ol>
 
-            <h3 class="subsection-title">Execution Logic (C++ Interface Pipeline)</h3>
-            <div class="code-editor">
-                <div class="code-header">TransformableInterface.h</div>
-<pre><code><span class="keyword">UINTERFACE</span>(MinimalAPI)
-<span class="keyword">class</span> <span class="class">UTransformable</span> : <span class="keyword">public</span> <span class="class">UInterface</span> 
+<h3 class="subsection-title">Execution Logic (Possession & Cleanup Pipeline)</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
+                <em>Implementation of the interface-driven transformation pipeline. Demonstrates safe state tearing, delegate cleanup, and Enhanced Input hot-swapping via the Local Player Subsystem.</em>
+            </p>
+            
+            <div class="code-editor" style="background: #0d0d0d; border: 1px solid #333; border-radius: 4px; padding: 1.5rem; overflow-x: auto; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6;">
+<pre style="margin: 0; color: #00FF41;"><code>
+// ------------------------------------------------------------------------------------------------
+// IRLTransformableInterface.h
+// ------------------------------------------------------------------------------------------------
+#pragma once
+#include "CoreMinimal.h"
+#include "UObject/Interface.h"
+#include "GameplayTagContainer.h"
+#include "RLTransformableInterface.generated.h"
+
+UINTERFACE(MinimalAPI, Blueprintable)
+class URLTransformableInterface : public UInterface
 {
     GENERATED_BODY()
 };
 
-<span class="keyword">class</span> <span class="class">ITransformable</span> 
+class IRLTransformableInterface
 {
     GENERATED_BODY()
 
-<span class="keyword">public</span>:
-    <span class="comment">// Validates required state via Gameplay Tags before executing</span>
-    <span class="keyword">virtual bool</span> <span class="function">CanTransform</span>(<span class="keyword">const</span> <span class="class">FGameplayTagContainer</span>& <span class="variable">RequiredTags</span>) = <span class="number">0</span>;
-    
-    <span class="comment">// Handles current pawn destruction and target possession</span>
-    <span class="keyword">virtual void</span> <span class="function">ExecuteTransformation</span>(<span class="class">TSubclassOf</span>&lt;<span class="class">APawn</span>&gt; <span class="variable">TargetPawnClass</span>) = <span class="number">0</span>;
-};</code></pre>
+public:
+    UFUNCTION(BlueprintNativeEvent, Category = "RL|Transformation")
+    bool CanTransform(const FGameplayTagContainer& RequiredTags) const;
+
+    // Forces derived pawns to resolve physics handles, clear active timers, 
+    // and unbind delegate signatures prior to GC destruction.
+    UFUNCTION(BlueprintNativeEvent, Category = "RL|Transformation")
+    void PreTransformCleanup();
+};
+
+
+// ------------------------------------------------------------------------------------------------
+// RLPlayerController.cpp
+// ------------------------------------------------------------------------------------------------
+#include "Player/RLPlayerController.h"
+#include "Interfaces/RLTransformableInterface.h"
+#include "EnhancedInputSubsystems.h"
+
+void ARLPlayerController::ExecuteTransformation(TSubclassOf&lt;APawn&gt; TargetPawnClass, UInputMappingContext* TargetIMC)
+{
+    if (!HasAuthority())
+    {
+        return;
+    }
+
+    checkf(TargetPawnClass, TEXT("ExecuteTransformation invoked with null TargetPawnClass."));
+
+    APawn* CurrentShell = GetPawn();
+    if (!IsValid(CurrentShell))
+    {
+        return;
+    }
+
+    IRLTransformableInterface* TransformInterface = Cast&lt;IRLTransformableInterface&gt;(CurrentShell);
+    if (!TransformInterface)
+    {
+        UE_LOG(LogRLSystems, Error, TEXT("[%s] Current pawn fails IRLTransformableInterface implementation."), *GetNameSafe(this));
+        return;
+    }
+
+    if (!TransformInterface-&gt;Execute_CanTransform(CurrentShell, RequiredTransformationTags))
+    {
+        return;
+    }
+
+    // Safely teardown active state and visual FX before memory allocation
+    TransformInterface-&gt;Execute_PreTransformCleanup(CurrentShell);
+
+    const FTransform SpawnTransform = CurrentShell-&gt;GetActorTransform();
+    const FRotator ControlRotation = GetControlRotation();
+
+    UnPossess();
+    CurrentShell-&gt;Destroy();
+
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    SpawnParams.Owner = this;
+    SpawnParams.Instigator = this;
+
+    APawn* NewShell = GetWorld()-&gt;SpawnActor&lt;APawn&gt;(TargetPawnClass, SpawnTransform, SpawnParams);
+    if (IsValid(NewShell))
+    {
+        Possess(NewShell);
+        SetControlRotation(ControlRotation);
+
+        if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem&lt;UEnhancedInputLocalPlayerSubsystem&gt;(GetLocalPlayer()))
+        {
+            Subsystem-&gt;ClearAllMappings();
+            Subsystem-&gt;AddMappingContext(TargetIMC, 0);
+        }
+    }
+}
+</code></pre>
             </div>
-
-        </div>
-    </section>
-
-</body>
-</html>

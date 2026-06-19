@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow Engine | Technical Breakdown</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">&larr; BACK</a></div>
+    </header>
+
+    <section style="padding-top: 2rem;">
+        <h1 class="section-title accent" style="margin-bottom: 1rem;">Flow Engine</h1>
+        
+        <div class="tech-stack">
+            <span class="tech-badge">C++17</span>
+            <span class="tech-badge">SFML 3.0</span>
+            <span class="tech-badge">Dear ImGui</span>
+            <span class="tech-badge">CMake</span>
+            <span class="tech-badge">ECS Architecture</span>
+            <span class="tech-badge">GAS Architecture</span>
+            <span class="tech-badge">Ongoing</span>
+        </div>
+
+        <div class="bio-text" style="max-width: 800px; margin: 0 auto;">
+            
+            <blockquote class="role-block">
+                <strong>ROLE:</strong> Lead Engineer, Systems Architect
+            </blockquote>
+
+            <h3 class="subsection-title">Engine Architecture</h3>
+            <div class="diagram-wrapper" style="border: none; background: transparent; padding: 0;">
+                <img src="flow-engine-arch.png" alt="Flow Engine Architecture Diagram" class="diagram-img" style="border: 1px solid var(--border-color); border-radius: 4px;">
+                <p class="caption">Engine modularity: Decoupling Hardware Abstraction (SFML) from the ECS Simulation layer.</p>
+            </div>
+
+            <h3 class="subsection-title">Core Engineering Implementations</h3>
+            <ol class="mechanics-list ordered-mechanics" style="color: var(--text-secondary); margin-left: 1.5rem; line-height: 1.8; padding-left: 1rem;">
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Data-Oriented ECS Architecture:</strong> Implemented a cache-friendly Entity Component System (ECS) to manage concurrent entity processing. By decoupling simulation data from behavioral logic, the engine maximizes CPU cache locality, drastically reducing memory latency.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Deterministic Fixed-Timestep Loop:</strong> Engineered a robust accumulator-based master loop. Physics and simulation logic are strictly decoupled from rendering framerates, ensuring deterministic behavior across variable hardware.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Inversion of Control (IoC) Pipeline:</strong> Standardized engine lifecycle management where the `Application` delegates hardware abstraction to the `Engine` core, while the `Sandbox` client defines game-specific state, ensuring strict system isolation.</li>
+
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Networked Listen-Server Model:</strong> Architected a UDP-based networking layer using binary serialization. Implemented state snapshots and RPC marshaling to maintain synchronization between client and server, masking latency through state interpolation.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Dear ImGui Debug Overlay:</strong> Integrated an interface-driven debug layer. Implemented an `IDebuggable` interface for all engine subsystems, allowing the overlay to dynamically query system states at runtime without impacting production build performance.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong style="color: #569cd6;">Resource Management & Build System:</strong> Managed build complexity through a modular CMake workspace, utilizing `FetchContent` for dependency resolution (SFML/ImGui). Enforced static linking to minimize deployment footprint and runtime dependency conflicts.</li>
+            </ol>
+
+            <h3 class="subsection-title">Engine Core (Lifecycle Management)</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
+                <em>Implementation of the Engine lifecycle. Demonstrates resource-aware initialization, robust .ini parsing, and hardware abstraction layer (HAL) isolation.</em>
+            </p>
+            
+            <div class="code-editor" style="background: #0d0d0d; border: 1px solid #333; border-radius: 4px; padding: 1.5rem; overflow-x: auto; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6;">
+<pre style="margin: 0; color: #00FF41;"><code>
+// ------------------------------------------------------------------------------------------------
+// Engine.h - Interface Definition
+// ------------------------------------------------------------------------------------------------
+#pragma once
+#include &lt;SFML/Graphics.hpp&gt;
+#include &lt;string&gt;
+#include &lt;unordered_map&gt;
+
+namespace Flow {
+    struct EngineConfig {
+        uint32_t WindowWidth = 800;
+        uint32_t WindowHeight = 600;
+        std::string WindowName = "Flow Engine";
+        bool bIsFullscreen = false;
+    };
+
+    class Engine {
+    public:
+        Engine() = default;
+        ~Engine() = default;
+
+        void InitializeEngine();
+        void ShutdownEngine();
+
+        // Const-correct accessors for system integrity
+        const sf::RenderWindow& GetWindow() const noexcept { return Window; }
+        bool IsRunning() const noexcept { return bIsEngineRunning; }
+
+    private:
+        sf::RenderWindow Window;
+        bool bIsEngineRunning = false;
+        EngineConfig Config;
+        std::unordered_map&lt;std::string, std::string&gt; RawConfigData;
+
+        void LoadConfigurationFile(const std::string& FilePath);
+    };
+}
+
+// ------------------------------------------------------------------------------------------------
+// Engine.cpp - Implementation
+// ------------------------------------------------------------------------------------------------
+#include "Engine.h"
+#include &lt;fstream&gt;
+
+namespace Flow {
+
+    void Engine::LoadConfigurationFile(const std::string& FilePath) {
+        std::ifstream File(FilePath);
+        if (!File.is_open()) return;
+
+        std::string Line;
+        while (std::getline(File, Line)) {
+            const size_t DelimiterPos = Line.find('=');
+            if (DelimiterPos != std::string::npos) {
+                RawConfigData[Line.substr(0, DelimiterPos)] = Line.substr(DelimiterPos + 1);
+            }
+        }
+        
+        // Defensive parsing with default fallbacks
+        if (RawConfigData.count("WindowWidth")) Config.WindowWidth = std::stoul(RawConfigData.at("WindowWidth"));
+        if (RawConfigData.count("WindowName")) Config.WindowName = RawConfigData.at("WindowName");
+    }
+
+    void Engine::InitializeEngine() {
+        LoadConfigurationFile("Engine.ini");
+
+        const sf::VideoMode Mode{ Config.WindowWidth, Config.WindowHeight };
+        const sf::Style Style = Config.bIsFullscreen ? sf::Style::Fullscreen : sf::Style::Default;
+        
+        Window.create(Mode, Config.WindowName, Style);
+        bIsEngineRunning = Window.isOpen();
+    }
+
+    void Engine::ShutdownEngine() {
+        if (Window.isOpen()) Window.close();
+        bIsEngineRunning = false;
+    }
+}
+</code></pre>
+            </div>
