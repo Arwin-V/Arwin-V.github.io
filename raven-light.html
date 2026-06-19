@@ -16,34 +16,71 @@
         <h1 class="section-title accent" style="margin-bottom: 1rem;">Raven Light</h1>
         
         <div class="tech-stack">
-            <span class="tech-badge">Unreal Engine 5</span>
-            <span class="tech-badge">C++</span>
-            <span class="tech-badge">Gameplay Ability System (GAS)</span>
-            <span class="tech-badge">State Trees</span>
+            <span class="tech-badge">Unreal Engine 5.5</span>
+            <span class="tech-badge">C++ Blueprints Hybrid</span>
+            <span class="tech-badge">Scalable Combat System</span>
+            <span class="tech-badge">RPG Mechanics</span>
+            <span class="tech-badge">Behavior Trees</span>
         </div>
 
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Raven Light Gameplay" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/EEjpeOKlbBc?si=0R-0a8dHtQt7Qj8j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
 
         <div class="bio-text" style="max-width: 800px; margin: 0 auto;">
-            <p><strong>Architecture Overview:</strong> Raven Light operates as a highly polished vertical slice designed to stress-test technical animation workflows and complex AI states in a boss fight scenario.</p>
             
-            <p><strong>C++ Implementations:</strong></p>
-            <ul style="color: var(--text-secondary); margin-left: 2rem; margin-bottom: 1.5rem; line-height: 1.8;">
-                <li>Engineered a custom shape-shifting mechanic relying heavily on optimized skeletal mesh swaps and memory pooling to ensure frame-rate stability during combat.</li>
-                <li>Implemented UE5's Gameplay Ability System (GAS) natively in C++ to handle attributes, cooldowns, and damage calculations entirely server-side.</li>
-                <li>Utilized State Trees and custom Behavior Trees to drive dynamic boss fight phases based on player distance and health thresholds.</li>
-            </ul>
+            <blockquote class="role-block">
+                <strong>ROLE:</strong> Solo Production - Design & Development
+            </blockquote>
 
-            <p><strong>Code Snippet Example (State Handling):</strong></p>
-            <pre style="background: #111; border: 1px solid var(--border-color); padding: 1rem; color: #a6e22e; overflow-x: auto; border-radius: 4px; margin-top: 1rem;">
-// Example placeholder for actual code demonstrating memory management or GAS implementation
-void ARavenCharacter::ApplyDamageContext(AActor* Damager) {
-    if (!HasAuthority()) return;
-    // Core GAS execution logic here
-}
-            </pre>
+            <h3 class="subsection-title">System Architecture</h3>
+            <div class="diagram-wrapper" style="border: none; background: transparent; padding: 0;">
+                <img src="raven-arch.png" alt="Raven Light Systems Architecture Diagram" class="diagram-img" style="border: 1px solid var(--border-color); border-radius: 4px;">
+                <p class="caption">High-level execution flow demonstrating decoupled state persistence, interface-driven transformations, and event-driven AI.</p>
+            </div>
+
+           <h3 class="subsection-title">Core Engineering Implementations</h3>
+            <ol class="mechanics-list ordered-mechanics" style="color: var(--text-secondary); margin-left: 1.5rem; line-height: 1.8; padding-left: 1rem;">
+                
+                <li style="margin-bottom: 1rem;"><strong>State Management & Memory Persistence:</strong> Abstracted RPG data (Health, Stamina, Mana) into a modular <code>UCustomAttributeComponent</code> bound to the <code>APlayerState</code>. Maintained strict data integrity across boundaries by leveraging <code>UGameInstance</code> caches for hard loads and persistent state injection during seamless transitions.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong>World Streaming & Seamless Transitions:</strong> Architected non-blocking, seamless level transitions utilizing Unreal’s level streaming and portal systems. This completely eliminates frame hitching and ensures uninterrupted gameplay flow during spatial state changes.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong>Interface-Driven Possession Pipeline:</strong> Engineered a scalable <code>ITransformable</code> framework to decouple pawn logic. The pipeline evaluates Hierarchical <code>FGameplayTag</code> conditions, safely handles the garbage collection of the active shell, and dynamically injects Priority 0 Input Mapping Contexts (IMCs) upon target possession.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong>Scalable Combat Architecture & Token Director:</strong> Designed a highly scalable, component-based combat framework governed by a custom <strong>Token-Based Attack System</strong>. This architecture manages AI attack concurrency and spacing, preventing combat state overlapping and guaranteeing readable, AAA-standard engagement pacing.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong>Deterministic Hit Registration (Advanced Trace):</strong> Developed a universal, data-driven <code>UAdvancedWeaponTraceComponent</code> attachable to any entity via composition. Hit calculation is strictly slaved to <code>UAnimNotifyState</code> events within Montages, guaranteeing frame-perfect synchronization between visual kinematics and server-side damage execution.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong>Event-Driven AI & Bespoke Boss Logic:</strong> Replaced expensive tick functions with delegate-driven <code>UBehaviorTree</code> execution for standard AI. Architected a bespoke, standalone AI Controller for the Boss entity to manage complex phase transitions and strictly mitigate "God Class" inheritance bloat.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong>Procedural 3D Spatial Navigation:</strong> Programmed a custom <code>UProceduralFlightComponent</code> to solve complex aerial traversal for entities like Dragons. Combined spline-based locomotion with dynamic steering behaviors (e.g., separation, alignment, cohesion) to generate fluid, procedural flight animations independently of the primary navigation mesh.</li>
+                
+                <li style="margin-bottom: 1rem;"><strong>Data-Driven Design (DDD) & Observer UI:</strong> Constructed the <code>ABirdBase</code> architecture heavily reliant on <code>UPrimaryDataAsset</code> initialization, enabling level designers to natively tune parameters without C++ recompilation. Bound the UI strictly to <code>OnValueChanged</code> delegates, achieving zero-tick, Observer Pattern-driven rendering.</li>
+            </ol>
+
+            <h3 class="subsection-title">Execution Logic (C++ Interface Pipeline)</h3>
+            <div class="code-editor">
+                <div class="code-header">TransformableInterface.h</div>
+<pre><code><span class="keyword">UINTERFACE</span>(MinimalAPI)
+<span class="keyword">class</span> <span class="class">UTransformable</span> : <span class="keyword">public</span> <span class="class">UInterface</span> 
+{
+    GENERATED_BODY()
+};
+
+<span class="keyword">class</span> <span class="class">ITransformable</span> 
+{
+    GENERATED_BODY()
+
+<span class="keyword">public</span>:
+    <span class="comment">// Validates required state via Gameplay Tags before executing</span>
+    <span class="keyword">virtual bool</span> <span class="function">CanTransform</span>(<span class="keyword">const</span> <span class="class">FGameplayTagContainer</span>& <span class="variable">RequiredTags</span>) = <span class="number">0</span>;
+    
+    <span class="comment">// Handles current pawn destruction and target possession</span>
+    <span class="keyword">virtual void</span> <span class="function">ExecuteTransformation</span>(<span class="class">TSubclassOf</span>&lt;<span class="class">APawn</span>&gt; <span class="variable">TargetPawnClass</span>) = <span class="number">0</span>;
+};</code></pre>
+            </div>
+
         </div>
     </section>
 
