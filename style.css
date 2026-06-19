@@ -203,3 +203,160 @@ blockquote {
     color: var(--text-secondary);
     font-size: 1.2rem;
 }
+
+/* =========================================
+   MOBILE RESPONSIVENESS (Media Queries)
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Shrink global padding to give content more room */
+    section {
+        padding: 3rem 5%;
+    }
+    
+    header {
+        padding: 1.5rem 5%;
+        flex-direction: column; /* Stacks the logo and navigation vertically */
+        gap: 1rem;
+    }
+
+    /* 2. Wrap navigation links so they don't bleed off the screen */
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    nav a {
+        margin: 0;
+        font-size: 0.85rem;
+    }
+
+    /* 3. Collapse the 2-column grid into a single column */
+    .about-grid {
+        grid-template-columns: 1fr; /* 1 fraction means it takes up 100% width */
+        text-align: center; /* Centers the bio text for mobile reading */
+        gap: 2rem;
+    }
+
+    /* 4. Adjust the profile photo container size for mobile screens */
+    .profile-wrapper {
+        max-width: 280px; 
+        margin: 0 auto;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    
+    .btn {
+        width: 100%; /* Makes the download button easier to tap on phones */
+        padding: 1rem;
+    }
+}/* =========================================
+   MOBILE RESPONSIVENESS (Media Queries)
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Shrink global padding to give content more room */
+    section {
+        padding: 3rem 5%;
+    }
+    
+    header {
+        padding: 1.5rem 5%;
+        flex-direction: column; /* Stacks the logo and navigation vertically */
+        gap: 1rem;
+    }
+
+    /* 2. Wrap navigation links so they don't bleed off the screen */
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    nav a {
+        margin: 0;
+        font-size: 0.85rem;
+    }
+
+    /* 3. Collapse the 2-column grid into a single column */
+    .about-grid {
+        grid-template-columns: 1fr; /* 1 fraction means it takes up 100% width */
+        text-align: center; /* Centers the bio text for mobile reading */
+        gap: 2rem;
+    }
+
+    /* 4. Adjust the profile photo container size for mobile screens */
+    .profile-wrapper {
+        max-width: 280px; 
+        margin: 0 auto;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    
+    .btn {
+        width: 100%; /* Makes the download button easier to tap on phones */
+        padding: 1rem;
+    }
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS (Media Queries)
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Shrink global padding to give content more room */
+    section {
+        padding: 3rem 5%;
+    }
+    
+    header {
+        padding: 1.5rem 5%;
+        flex-direction: column; /* Stacks the logo and navigation vertically */
+        gap: 1rem;
+    }
+
+    /* 2. Wrap navigation links so they don't bleed off the screen */
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    nav a {
+        margin: 0;
+        font-size: 0.85rem;
+    }
+
+    /* 3. Collapse the 2-column grid into a single column */
+    .about-grid {
+        grid-template-columns: 1fr; /* 1 fraction means it takes up 100% width */
+        text-align: center; /* Centers the bio text for mobile reading */
+        gap: 2rem;
+    }
+
+    /* 4. Adjust the profile photo container size for mobile screens */
+    .profile-wrapper {
+        max-width: 280px; 
+        margin: 0 auto;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    
+    .btn {
+        width: 100%; /* Makes the download button easier to tap on phones */
+        padding: 1rem;
+    }
+}
